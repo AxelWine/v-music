@@ -1,7 +1,7 @@
 name: Jest Test
 
 on:
-  push:
+  pull_request:
     branches:
       - main
       - devel
@@ -25,33 +25,9 @@ jobs:
 
       - name: Run Jest Test
         run: |
-          npm run test
+          npx jest --json > jest-report.json
         id: jest
 
-      - name: Send Output to Soter
-        uses: actions/github-script@v5
-        if: ${{ always() }}
-        env:
-          SOTER_ROR: ${{ secrets.SOTER_ROR }}
-          SOTER_TOKEN: ${{ secrets.SOTER_TOKEN }}
-        with:
-          script: |
-            const fs = require("fs");
-            const axios = require("axios");
-            const output = JSON.parse(fs.readFileSync("jest-report.json", "utf8"));
-            axios.post(process.env.SOTER_ROR, {
-              github: {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                run_id: process.env.GITHUB_RUN_ID,
-                action: process.env.GITHUB_ACTION,
-                branch: process.env.GITHUB_HEAD_REF || process.env.GITHUB_REF,
-                commit: process.env.GITHUB_SHA,
-                token: process.env.SOTER_TOKEN
-              },
-              output
-            });
-  
   eslint-run:
     runs-on: ubuntu-latest
     steps:
