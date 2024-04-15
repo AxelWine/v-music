@@ -3,8 +3,11 @@ node_modules
 
 package-lock.json
 jest-report.json
+eslint.xml
 
 .vscode
 
 database
 .env
+
+test
