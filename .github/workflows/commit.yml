@@ -1,6 +1,10 @@
 name: Jest Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - devel
 
 jobs:
   jest-run:
