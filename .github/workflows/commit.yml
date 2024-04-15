@@ -1,0 +1,51 @@
+name: Jest Test
+
+on: [push]
+
+jobs:
+  jest-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: |
+          npm install --omit=dev
+          npm install jest axios
+        env:
+          NPM_SERVER: ${{ secrets.NPM_SERVER }}
+
+      - name: Run Jest Test
+        run: |
+          npm run test
+        id: jest
+
+      - name: Send Output to Soter
+        uses: actions/github-script@v5
+        if: ${{ always() }}
+        env:
+          SOTER_ROR: ${{ secrets.SOTER_ROR }}
+          SOTER_TOKEN: ${{ secrets.SOTER_TOKEN }}
+        with:
+          script: |
+            const fs = require("fs");
+            const axios = require("axios");
+            const output = JSON.parse(fs.readFileSync("jest-report.json", "utf8"));
+            axios.post(process.env.SOTER_ROR, {
+              github: {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: process.env.GITHUB_RUN_ID,
+                action: process.env.GITHUB_ACTION,
+                branch: process.env.GITHUB_HEAD_REF || process.env.GITHUB_REF,
+                commit: process.env.GITHUB_SHA,
+                token: process.env.SOTER_TOKEN
+              },
+              output
+            });
