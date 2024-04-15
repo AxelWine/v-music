@@ -1,7 +1,7 @@
-const youtube = require('./youtube');
 const getSource = require('./getSource.js');
+const youtube = require('./youtube');
 
 module.exports = {
-  youtube,
-  getSource
+  getSource,
+  youtube
 };
