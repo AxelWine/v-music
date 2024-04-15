@@ -2,15 +2,15 @@ const ytdl = require('ytdl-core');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuid } = require('uuid');
+const youtubeUrl = require('youtube-url');
 
 module.exports = url => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const tempDir = path.join(process.cwd(), '.temp');
     if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
 
-    if (!ytdl.validateURL(url)) {
-      throw new Error('Invalid URL');
-    };
+    if (!url) return reject(new Error('URL is required'));
+    if (!youtubeUrl.valid(url)) return reject(new Error('Invalid URL'));
 
     const stream = ytdl(url, { filter: 'audioonly' });
     const filePath = path.join(process.cwd(), '.temp', `${uuid()}.mp3`);

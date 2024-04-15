@@ -25,7 +25,7 @@ jobs:
 
       - name: Run Jest Test
         run: |
-          npm run test
+          npx jest --json > jest-report.json
         id: jest
 
       - name: Send Output to Soter
