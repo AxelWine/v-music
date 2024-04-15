@@ -1,12 +1,16 @@
 {
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
     "extends": [
-        "eslint:recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings"
+        "eslint:recommended"
     ],
     "plugins": [
-        "jest",
-        "import"
+        "jest"
     ],
     "rules": {
         "no-extra-semi": [
@@ -14,7 +18,7 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "indent": [
             "warn",
