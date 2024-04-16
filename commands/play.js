@@ -56,6 +56,8 @@ exports.run = async({ message, args }) => {
 
   database.queue.addSong(songInfo, message.guild.id);
   queue = database.queue.get(message.guild.id);
+  songInfo = queue[queue.length - 1];
+
   const autoPlay = queue.length === 1;
   const titleArgs = { song: songInfo.title };
   const title = autoPlay
@@ -65,5 +67,7 @@ exports.run = async({ message, args }) => {
   embed.setThumbnail(songInfo.thumbnail);
   message.channel.send({ embeds: [embed] });
 
+  console.log(controller.players);
+  console.log(controller.players.play);
   if (autoPlay) controller.players.play(message.member.voice.channel, songInfo.id);
 };
