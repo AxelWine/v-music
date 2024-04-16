@@ -16,4 +16,15 @@ const initDB = async() => {
 
 initDB();
 
-module.exports = servers;
+/**
+ * Find a server in the database
+ * @param {string} serverId - The server ID
+ * @returns {object} - The server object
+ */
+const find = serverId => {
+  return servers.find(x => x.server === serverId);
+};
+
+module.exports = {
+  find
+};

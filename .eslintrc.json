@@ -16,6 +16,54 @@
         "no-extra-semi": [
             "off"
         ],
+        "no-console": [
+            "off"
+        ],
+        "no-continue": [
+            "off"
+        ],
+        "no-async-promise-executor": [
+            "off"
+        ],
+        "no-await-in-loop": [
+            "off"
+        ],
+        "arrow-parens": [
+            "warn",
+            "as-needed"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 120
+            }
+        ],
+        "keyword-spacing": [
+            "warn"
+        ],
+        "space-in-parens": [
+            "warn",
+            "never"
+        ],
+        "space-before-blocks": [
+            "warn"
+        ],
+        "space-before-function-paren": [
+            "warn",
+            "never"
+        ],
+        "space-infix-ops": [
+            "warn"
+        ],
+        "space-unary-ops": [
+            "warn"
+        ],
+        "prefer-const": [
+            "error"
+        ],
+        "prefer-arrow-callback": [
+            "error"
+        ],
         "quotes": [
             "error",
             "single"
@@ -40,30 +88,6 @@
         "object-curly-spacing": [
             "warn",
             "always"
-        ],
-        "max-len": [
-            "warn",
-            {
-                "code": 200
-            }
-        ],
-        "arrow-parens": [
-            "off"
-        ],
-        "eol-last": [
-            "off"
-        ],
-        "no-console": [
-            "off"
-        ],
-        "no-continue": [
-            "off"
-        ],
-        "no-async-promise-executor": [
-            "off"
-        ],
-        "no-await-in-loop": [
-            "off"
         ]
     }
 }

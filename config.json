@@ -1,4 +1,5 @@
 {
+  "defaultLanguage": "en",
   "colors": {
     "default": "#000000",
     "success": "#008F39",
