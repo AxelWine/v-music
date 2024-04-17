@@ -12,7 +12,8 @@ module.exports = url => {
     if (!url) return reject(new Error('URL is required'));
     if (!youtubeUrl.valid(url)) return reject(new Error('Invalid URL'));
 
-    const stream = ytdl(url, { filter: 'audioonly' });
+    const id = ytdl.getVideoID(url);
+    const stream = ytdl(`https://youtube.com/watch?v=${id}`, { filter: 'audioonly' });
     const filePath = path.join(process.cwd(), '.temp', `${uuid()}.mp3`);
 
     stream.pipe(fs.createWriteStream(filePath));

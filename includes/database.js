@@ -1,7 +1,7 @@
-const server = require('./server.js');
+const servers = require('./servers.js');
 const queue = require('./queue.js');
 
 module.exports = {
-  server,
+  servers,
   queue
 };

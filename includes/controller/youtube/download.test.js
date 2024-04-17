@@ -6,7 +6,7 @@ jest.mock('ytdl-core');
 jest.mock('fs');
 
 describe('download function', () => {
-  it('should resolve with a file path when the download is finished', async () => {
+  it('should resolve with a file path when the download is finished', async() => {
     const url = 'https://www.youtube.com/watch?v=XGxIE1hr0w4';
     const mockStream = {
       pipe: jest.fn(),
@@ -23,13 +23,11 @@ describe('download function', () => {
     expect(fs.existsSync(result)).toBe(true);
   });
 
-  it('should throw an error when the URL is invalid', async () => {
-    const url = 'invalid url';
-
-    await expect(download(url)).rejects.toThrow('Invalid URL');
+  it('should throw an error when the URL is invalid', async() => {
+    await expect(download('invalid_url')).rejects.toThrow('Invalid URL');
   });
 
-  it('should throw an error when the URL is not provided', async () => {
+  it('should throw an error when the URL is not provided', async() => {
     await expect(download()).rejects.toThrow('URL is required');
   });
 });
