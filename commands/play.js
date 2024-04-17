@@ -34,15 +34,13 @@ exports.run = async({ message, args }) => {
         return;
       };
 
-      const filePath = await controller.youtube.download(url);
       const info = await controller.youtube.info(url);
       songInfo = {
         guild: message.guild.id,
         title: info.title,
         url: info.url,
         duration: info.duration,
-        thumbnail: info.thumbnail,
-        filePath
+        thumbnail: info.thumbnail
       };
     } catch (error) {
       console.error(error);
@@ -69,5 +67,6 @@ exports.run = async({ message, args }) => {
 
   console.log(controller.players);
   console.log(controller.players.play);
+  console.log(autoPlay);
   if (autoPlay) controller.players.play(message.member.voice.channel, songInfo.id);
 };
