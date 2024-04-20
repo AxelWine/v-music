@@ -57,16 +57,21 @@ exports.run = async({ message, args }) => {
   songInfo = queue[queue.length - 1];
 
   const autoPlay = queue.length === 1;
-  const titleArgs = { song: songInfo.title };
+  const titleArgs = {
+    song: songInfo.title.trim() || 'noname',
+    url: songInfo.url
+  };
   const title = autoPlay
     ? t('commands.play.nowPlaying', lang, titleArgs)
     : t('commands.play.addedToQueue', lang, titleArgs);
   const embed = createMessage(title, 'success');
   embed.setThumbnail(songInfo.thumbnail);
-  message.channel.send({ embeds: [embed] });
+  const botMessage = message.channel.send({ embeds: [embed] });
 
-  console.log(controller.players);
-  console.log(controller.players.play);
-  console.log(autoPlay);
+  database.messages.save({
+    userMessage: message.id,
+    botMessage: botMessage.id
+  });
+
   if (autoPlay) controller.players.play(message.member.voice.channel, songInfo.id);
 };

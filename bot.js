@@ -30,6 +30,17 @@ client.on('ready', () => {
   console.log('V-Music Bot ready!'.green.bold);
 });
 
+client.on('messageDelete', async userMessage => {
+  const message = database.messages.get(userMessage.id);
+  if (!message) return;
+
+  const botMessage = await message.channel.messages.cache.fetch(message.botMessage);
+  if (botMessage) {
+    botMessage.delete();
+    database.messages.remove(userMessage.id);
+  };
+});
+
 client.on('messageCreate', message => {
   // Ignore messages from bots.
   if (message.author.bot) return;

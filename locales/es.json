@@ -3,6 +3,6 @@
   "commands.play.noRequest": "Debes escribir el nombre o el enlace de la canción.",
   "commands.play.notFound": "No se ha encontrado ninguna canción con ese nombre.",
   "commands.play.unknownError": "No se ha podido añadir la canción.",
-  "commands.play.nowPlaying": "Reproduciendo {{song}}",
-  "commands.play.addedToQueue": "Añadida {{song}} a la cola."
+  "commands.play.nowPlaying": "Reproduciendo [{{song}}]({{url}}).",
+  "commands.play.addedToQueue": "Añadida [{{song}}]({{url}}) a la cola."
 }

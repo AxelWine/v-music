@@ -14,7 +14,7 @@ module.exports = (content, type) => {
 
   const embed = new Discord.EmbedBuilder()
     .setColor(getColor(type))
-    .setTitle(content.substring(0, 256))
+    .setDescription(content.substring(0, 256))
 
   return embed;
 };

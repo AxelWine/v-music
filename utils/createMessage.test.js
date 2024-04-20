@@ -17,7 +17,7 @@ describe('createMessage', () => {
 
     const result = createMessage(content, type);
 
-    expect(result.data.title).toBe(content.substring(0, 256));
+    expect(result.data.description).toBe(content.substring(0, 256));
     expect(result.data.color).toBe(parseInt(getColor(type).replace('#', ''), 16));
   });
 
@@ -27,7 +27,7 @@ describe('createMessage', () => {
 
     const result = createMessage(content, type);
 
-    expect(result.data.title).toBe(content.substring(0, 256));
+    expect(result.data.description).toBe(content.substring(0, 256));
     expect(result.data.color).toBe(parseInt(getColor(type).replace('#', ''), 16));
   });
 });
