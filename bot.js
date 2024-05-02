@@ -71,19 +71,33 @@ client.on('voiceStateUpdate', async(oldState, newState) => {
   const newChannel = newState.channel;
 
   if (oldChannel) {
-    const isBotAlone = oldChannel.members.size == 1 && oldChannel.members.find(x => x.id == client.user.id);
-    if (isBotAlone) {
-      const connection = Voice.getVoiceConnection(oldChannel.guild.id);
-      if (connection) {
-        connection.disconnect();
+
+    // The bot has not been disconnected
+    if (newChannel) {
+      const isBotAlone = oldChannel.members.size == 1 && oldChannel.members.find(x => x.id == client.user.id);
+
+      // If the bot is alone in the channel, disconnect it.
+      if (isBotAlone) {
+        const songs = database.queue.get(oldChannel.guild.id);
+        database.queue.clear(songs.map(x => x.id));
+
+        const connection = Voice.getVoiceConnection(oldChannel.guild.id);
+        if (connection) {
+          connection.disconnect();
+        };
+      };
+
+      // If the bot is moved to another channel, clear the queue.
+      if (newState.member.user.id === client.user.id && newChannel.id !== oldChannel.id) {
         const songs = database.queue.get(oldChannel.guild.id);
         database.queue.clear(songs.map(x => x.id));
       };
-    };
 
-    if (newChannel && newState.member.user.id === client.user.id && newChannel.id !== oldChannel.id) {
-      const songs = database.queue.get(oldChannel.guild.id);
-      database.queue.clear(songs.map(x => x.id));
+      // If the bot is disconnected, clear the queue.
+      if (oldState.member.user.id === client.user.id && !newChannel) {
+        const songs = database.queue.get(oldChannel.guild.id);
+        database.queue.clear(songs.map(x => x.id));
+      };
     };
   };
 });
